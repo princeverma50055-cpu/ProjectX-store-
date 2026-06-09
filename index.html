@@ -560,39 +560,7 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:44px 5%
   </div>
 </div>
 </div>
-function submitOrder(){
-  var n=document.getElementById("f-name").value.trim();
-  var e=document.getElementById("f-email").value.trim();
-  var c=document.getElementById("f-category").value;
-  var d=document.getElementById("f-desc").value.trim();
-  var p=document.getElementById("f-phone").value.trim();
-  var b=document.getElementById("f-budget").value;
-  var dl=document.getElementById("f-delivery").value;
-  
-  if(!n||!e||!c||!d){
-    alert("Please fill Name, Email, Category and Description.");
-    return;
-  }
 
-  var subject = "New Project: " + c + " | " + n;
-  var body = 
-    "Name: " + n + "%0A" +
-    "Email: " + e + "%0A" +
-    "Phone: " + p + "%0A" +
-    "Category: " + c + "%0A" +
-    "Budget: " + b + "%0A" +
-    "Delivery: " + dl + "%0A%0A" +
-    "Project Details:%0A" + d;
-
-  window.location.href = 
-    "mailto:princeverma50055@gmail.com" +
-    "?subject=" + encodeURIComponent(subject) +
-    "&body=" + body;
-
-  var t=document.getElementById("toast1");
-  t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"),4000);
-}
 <script>
 var selAmount="99";
 function selAmt(el,a){document.querySelectorAll(".fa-btn").forEach(b=>b.classList.remove("active"));el.classList.add("active");selAmount=a==="custom"?prompt("Enter amount:")||"99":a;}
@@ -633,7 +601,31 @@ function copyUPI(){try{navigator.clipboard.writeText("princeverma8753-1@oksbi");
 function showToast(id){var t=document.getElementById(id);t.classList.add("show");setTimeout(()=>t.classList.remove("show"),3000);}
 function orderService(cat){var sel=document.getElementById("f-category");for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===cat||sel.options[i].text===cat){sel.value=sel.options[i].value;break;}}document.getElementById("order").scrollIntoView({behavior:"smooth"});}
 function contactService(cat){orderService(cat);setTimeout(()=>document.getElementById("f-desc").focus(),600);}
-function submitOrder(){var n=document.getElementById("f-name").value.trim(),e=document.getElementById("f-email").value.trim(),c=document.getElementById("f-category").value,d=document.getElementById("f-desc").value.trim();if(!n||!e||!c||!d){alert("Please fill Name, Email, Category and Description.");return;}try{var msgs=JSON.parse(localStorage.getItem("px_inbox")||"[]");msgs.unshift({from:n,email:e,phone:document.getElementById("f-phone").value,subject:"New Project: "+c,preview:d.slice(0,80)+"...",budget:document.getElementById("f-budget").value,delivery:document.getElementById("f-delivery").value,time:new Date().toLocaleString("en-IN"),unread:true});localStorage.setItem("px_inbox",JSON.stringify(msgs));}catch(e){}showToast("toast1");["f-name","f-email","f-phone","f-desc"].forEach(id=>document.getElementById(id).value="");document.getElementById("f-category").value="";document.getElementById("f-budget").value="";document.getElementById("f-delivery").value="";}
+function submitOrder(){
+  var n=document.getElementById("f-name").value.trim();
+  var e=document.getElementById("f-email").value.trim();
+  var c=document.getElementById("f-category").value;
+  var d=document.getElementById("f-desc").value.trim();
+  var p=document.getElementById("f-phone").value.trim();
+  var b=document.getElementById("f-budget").value;
+  var dl=document.getElementById("f-delivery").value;
+  if(!n||!e||!c||!d){alert("Please fill Name, Email, Category and Description.");return;}
+  var subject="New Project: "+c+" | "+n;
+  var body=
+    "Name: "+n+"%0A"+
+    "Email: "+e+"%0A"+
+    "Phone: "+(p||"Not provided")+"%0A"+
+    "Category: "+c+"%0A"+
+    "Budget: "+(b||"Not specified")+"%0A"+
+    "Delivery: "+(dl||"Not specified")+"%0A%0A"+
+    "Project Details:%0A"+encodeURIComponent(d);
+  window.location.href="mailto:princeverma50055@gmail.com?subject="+encodeURIComponent(subject)+"&body="+body;
+  showToast("toast1");
+  ["f-name","f-email","f-phone","f-desc"].forEach(function(id){document.getElementById(id).value="";});
+  document.getElementById("f-category").value="";
+  document.getElementById("f-budget").value="";
+  document.getElementById("f-delivery").value="";
+}
 function toggleChat(){document.getElementById("chatWindow").classList.toggle("open");}
 function sendChat(){var inp=document.getElementById("chatInput"),msg=inp.value.trim();if(!msg)return;var m=document.getElementById("chatMsgs");m.innerHTML+="<div class='chat-msg user'>"+msg+"</div>";inp.value="";m.scrollTop=m.scrollHeight;setTimeout(()=>{m.innerHTML+="<div class='chat-msg bot'>Thanks! I will contact you at princeverma50055@gmail.com shortly. You can also fill the order form for faster processing!</div>";m.scrollTop=m.scrollHeight;},800);}
 function openGpay(){
