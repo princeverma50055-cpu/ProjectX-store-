@@ -560,7 +560,39 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:44px 5%
   </div>
 </div>
 </div>
+function submitOrder(){
+  var n=document.getElementById("f-name").value.trim();
+  var e=document.getElementById("f-email").value.trim();
+  var c=document.getElementById("f-category").value;
+  var d=document.getElementById("f-desc").value.trim();
+  var p=document.getElementById("f-phone").value.trim();
+  var b=document.getElementById("f-budget").value;
+  var dl=document.getElementById("f-delivery").value;
+  
+  if(!n||!e||!c||!d){
+    alert("Please fill Name, Email, Category and Description.");
+    return;
+  }
 
+  var subject = "New Project: " + c + " | " + n;
+  var body = 
+    "Name: " + n + "%0A" +
+    "Email: " + e + "%0A" +
+    "Phone: " + p + "%0A" +
+    "Category: " + c + "%0A" +
+    "Budget: " + b + "%0A" +
+    "Delivery: " + dl + "%0A%0A" +
+    "Project Details:%0A" + d;
+
+  window.location.href = 
+    "mailto:princeverma50055@gmail.com" +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + body;
+
+  var t=document.getElementById("toast1");
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),4000);
+}
 <script>
 var selAmount="99";
 function selAmt(el,a){document.querySelectorAll(".fa-btn").forEach(b=>b.classList.remove("active"));el.classList.add("active");selAmount=a==="custom"?prompt("Enter amount:")||"99":a;}
