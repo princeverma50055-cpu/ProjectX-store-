@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ProjectX Store — Prince Verma</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#0a0a0a;--dark:#111317;--card:#16191f;--border:#1e2229;--green:#00e676;--green2:#00c853;--purple:#7c3aed;--blue:#3b82f6;--text:#e8eaf0;--muted:#8b92a0;--white:#fff}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(10,10,10,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 5%}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo img{width:38px;height:38px;border-radius:9px}
+.nav-logo-text{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;color:var(--white)}
+.nav-logo-text span{color:var(--green)}
+.nav-links{display:flex;gap:22px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.88rem;transition:color 0.2s}
+.nav-links a:hover{color:var(--white)}
+.nav-actions{display:flex;gap:10px;align-items:center}
+.nav-fund{background:linear-gradient(135deg,#7c3aed,#3b82f6);color:#fff;padding:8px 16px;border-radius:8px;font-weight:600;font-size:0.82rem;border:none;cursor:pointer;transition:opacity 0.2s}
+.nav-fund:hover{opacity:0.85}
+.nav-cta{background:var(--green);color:#000;padding:8px 16px;border-radius:8px;font-weight:600;font-size:0.82rem;text-decoration:none;transition:background 0.2s}
+.nav-cta:hover{background:var(--green2)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{width:24px;height:2px;background:var(--white);border-radius:2px}
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 5% 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(0,230,118,0.07) 0%,transparent 70%);pointer-events:none}
+.hero-content{max-width:660px;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,230,118,0.1);border:1px solid rgba(0,230,118,0.25);color:var(--green);padding:6px 14px;border-radius:20px;font-size:0.8rem;font-weight:500;margin-bottom:24px}
+.hero-badge::before{content:'';width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:700;line-height:1.1;margin-bottom:20px;color:var(--white)}
+.hero h1 span{color:var(--green)}
+.hero p{color:var(--muted);font-size:1rem;line-height:1.7;margin-bottom:36px;max-width:520px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{background:var(--green);color:#000;padding:13px 26px;border-radius:10px;font-weight:700;font-size:0.92rem;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--green2);transform:translateY(-1px)}
+.btn-fund{background:linear-gradient(135deg,#7c3aed,#3b82f6);color:#fff;padding:13px 26px;border-radius:10px;font-weight:700;font-size:0.92rem;border:none;cursor:pointer;transition:all 0.2s}
+.btn-fund:hover{opacity:0.88;transform:translateY(-1px)}
+.btn-secondary{background:transparent;color:var(--white);padding:13px 26px;border-radius:10px;font-weight:600;font-size:0.92rem;text-decoration:none;border:1px solid var(--border);transition:all 0.2s}
+.btn-secondary:hover{border-color:var(--green);color:var(--green)}
+.hero-stats{display:flex;gap:36px;margin-top:48px;padding-top:36px;border-top:1px solid var(--border);flex-wrap:wrap}
+.stat-item h3{font-family:'Space Grotesk',sans-serif;font-size:1.7rem;font-weight:700;color:var(--white)}
+.stat-item h3 span{color:var(--green)}
+.stat-item p{color:var(--muted);font-size:0.8rem;margin-top:2px}
+.fund-section{background:linear-gradient(135deg,#0d0a1a,#0a1020,#0a0a0a);border-top:1px solid rgba(124,58,237,0.2);border-bottom:1px solid rgba(124,58,237,0.2);padding:80px 5%}
+.fund-inner{max-width:860px;margin:0 auto;text-align:center}
+.fund-logo{width:88px;height:88px;border-radius:20px;margin:0 auto 22px;display:block;box-shadow:0 0 40px rgba(124,58,237,0.3)}
+.fund-badge{display:inline-block;background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(59,130,246,0.2));border:1px solid rgba(124,58,237,0.4);color:#a78bfa;padding:5px 14px;border-radius:20px;font-size:0.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+.fund-section h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--white);margin-bottom:16px;line-height:1.2}
+.fund-section h2 span{background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.fund-desc{color:var(--muted);font-size:1rem;line-height:1.8;max-width:640px;margin:0 auto 36px}
+.fund-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px}
+.fund-card{background:rgba(255,255,255,0.03);border:1px solid rgba(124,58,237,0.2);border-radius:14px;padding:22px 16px;transition:border-color 0.2s}
+.fund-card:hover{border-color:rgba(124,58,237,0.5)}
+.fund-card .amount{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;color:var(--white);margin-bottom:5px}
+.fund-card .label{color:#a78bfa;font-size:0.8rem;font-weight:600;margin-bottom:7px}
+.fund-card .desc{color:var(--muted);font-size:0.78rem;line-height:1.5}
+.upi-box{background:rgba(255,255,255,0.03);border:1px solid rgba(59,130,246,0.3);border-radius:14px;padding:24px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.upi-left h4{font-family:'Space Grotesk',sans-serif;font-size:0.98rem;font-weight:700;color:var(--white);margin-bottom:5px}
+.upi-left p{color:var(--muted);font-size:0.82rem}
+.upi-id{background:#0d1017;border:1px solid rgba(59,130,246,0.4);border-radius:10px;padding:11px 18px;font-family:monospace;font-size:0.98rem;color:#60a5fa;font-weight:700;cursor:pointer;transition:background 0.2s;user-select:all}
+.upi-id:hover{background:#111827}
+.fund-cta{background:linear-gradient(135deg,#7c3aed,#3b82f6);color:#fff;padding:15px 40px;border-radius:12px;font-weight:700;font-size:1rem;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:opacity 0.2s;margin-bottom:12px}
+.fund-cta:hover{opacity:0.88}
+.fund-note{color:var(--muted);font-size:0.78rem}
+.naxsora-section{background:var(--dark);padding:80px 5%}
+.naxsora-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:960px;margin:0 auto}
+.naxsora-img{width:170px;height:170px;border-radius:30px;box-shadow:0 0 60px rgba(124,58,237,0.25)}
+.naxsora-img-wrap{display:flex;justify-content:center}
+.section-label{color:var(--green);font-size:0.78rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.naxsora-content .section-label{color:#a78bfa}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:700;color:var(--white);margin-bottom:12px}
+.section-sub{color:var(--muted);font-size:0.95rem;line-height:1.7;max-width:560px}
+.naxsora-content h2{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--white);margin-bottom:12px}
+.naxsora-content p{color:var(--muted);font-size:0.93rem;line-height:1.75;margin-bottom:22px}
+.nax-feats{display:flex;flex-direction:column;gap:9px;margin-bottom:22px}
+.nax-feat{display:flex;align-items:center;gap:9px;color:var(--text);font-size:0.86rem}
+.nax-feat::before{content:"✦";color:#a78bfa;font-size:0.7rem}
+section{padding:80px 5%}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:44px}
+.svc-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all 0.22s;cursor:pointer}
+.svc-card:hover{border-color:var(--green);transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,230,118,0.08)}
+.svc-img{width:100%;height:150px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden}
+.svc-body{padding:16px}
+.svc-tag{display:inline-block;background:rgba(0,230,118,0.1);color:var(--green);font-size:0.72rem;font-weight:600;padding:3px 9px;border-radius:5px;margin-bottom:9px}
+.svc-body h3{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:5px}
+.svc-body p{color:var(--muted);font-size:0.79rem;line-height:1.5;margin-bottom:12px}
+.svc-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:10px}
+.svc-price{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;color:var(--green)}
+.svc-days{color:var(--muted);font-size:0.74rem}
+.svc-btn{background:var(--green);color:#000;border:none;padding:7px 13px;border-radius:7px;font-weight:700;font-size:0.76rem;cursor:pointer;transition:background 0.2s}
+.svc-btn:hover{background:var(--green2)}
+.contact-btn{background:transparent;color:var(--green);border:1px solid var(--green);padding:7px 13px;border-radius:7px;font-weight:600;font-size:0.76rem;cursor:pointer;transition:all 0.2s;margin-top:5px;width:100%}
+.contact-btn:hover{background:var(--green);color:#000}
+.process-bg{background:var(--dark)}
+.process-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;margin-top:48px;position:relative}
+.process-steps::before{content:'';position:absolute;top:31px;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,var(--border),var(--border),transparent);z-index:0}
+.step{text-align:center;position:relative;z-index:1;padding:0 10px}
+.step-num{width:62px;height:62px;background:var(--card);border:2px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:700;color:var(--green);margin:0 auto 16px}
+.step h4{font-family:'Space Grotesk',sans-serif;font-size:0.88rem;font-weight:700;color:var(--white);margin-bottom:5px}
+.step p{color:var(--muted);font-size:0.78rem;line-height:1.5}
+.form-wrapper{max-width:680px;margin:44px auto 0;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:36px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:7px}
+.form-group.full{grid-column:1/-1}
+.form-group label{color:var(--text);font-size:0.83rem;font-weight:500}
+.form-group input,.form-group select,.form-group textarea{background:#0d1017;border:1px solid var(--border);border-radius:9px;color:var(--text);padding:11px 14px;font-size:0.88rem;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s;width:100%}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--green)}
+.form-group select option{background:#111317}
+.form-group textarea{resize:vertical;min-height:100px}
+.submit-btn{width:100%;background:var(--green);color:#000;border:none;padding:15px;border-radius:11px;font-weight:700;font-size:0.98rem;cursor:pointer;margin-top:9px;transition:background 0.2s;font-family:'Space Grotesk',sans-serif}
+.submit-btn:hover{background:var(--green2)}
+.form-note{text-align:center;color:var(--muted);font-size:0.78rem;margin-top:10px}
+.toast{position:fixed;bottom:28px;right:28px;color:#000;padding:14px 22px;border-radius:11px;font-weight:700;font-size:0.87rem;z-index:9999;transform:translateY(100px);opacity:0;transition:all 0.4s;box-shadow:0 8px 28px rgba(0,230,118,0.3)}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-green{background:#00e676}
+.toast-blue{background:linear-gradient(135deg,#7c3aed,#3b82f6);color:#fff}
+.chat-bubble{position:fixed;bottom:26px;left:26px;z-index:998}
+.chat-btn{width:56px;height:56px;background:var(--green);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 4px 20px rgba(0,230,118,0.4);transition:transform 0.2s}
+.chat-btn:hover{transform:scale(1.08)}
+.chat-window{position:absolute;bottom:68px;left:0;width:310px;background:var(--card);border:1px solid var(--border);border-radius:15px;overflow:hidden;display:none;flex-direction:column;box-shadow:0 16px 48px rgba(0,0,0,0.5)}
+.chat-window.open{display:flex}
+.chat-header{background:var(--green);padding:13px 16px;display:flex;align-items:center;gap:10px}
+.chat-avatar{width:34px;height:34px;background:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.95rem}
+.chat-info h4{color:#000;font-weight:700;font-size:0.88rem}
+.chat-info p{color:rgba(0,0,0,0.6);font-size:0.73rem}
+.chat-msgs{padding:14px;min-height:190px;max-height:250px;overflow-y:auto;display:flex;flex-direction:column;gap:9px}
+.chat-msg{max-width:82%;padding:9px 13px;border-radius:11px;font-size:0.82rem;line-height:1.5}
+.chat-msg.bot{background:#1e2229;color:var(--text);align-self:flex-start;border-bottom-left-radius:3px}
+.chat-msg.user{background:var(--green);color:#000;align-self:flex-end;border-bottom-right-radius:3px;font-weight:500}
+.chat-input-row{display:flex;border-top:1px solid var(--border);padding:9px}
+.chat-input-row input{flex:1;background:transparent;border:none;color:var(--text);font-size:0.86rem;outline:none;padding:5px 7px;font-family:'Inter',sans-serif}
+.chat-input-row button{background:var(--green);border:none;color:#000;width:34px;height:34px;border-radius:7px;cursor:pointer;font-size:0.98rem}
+.fund-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.fund-modal-overlay.open{display:flex}
+.fmodal{background:var(--card);border:1px solid rgba(124,58,237,0.3);border-radius:18px;width:100%;max-width:460px;overflow:hidden}
+.fmodal-header{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(124,58,237,0.1),rgba(59,130,246,0.05))}
+.fmodal-header h3{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;color:var(--white)}
+.fmodal-close{background:transparent;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer}
+.fmodal-close:hover{color:var(--white)}
+.fmodal-body{padding:24px 22px}
+.fund-amts{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}
+.fa-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(124,58,237,0.25);border-radius:9px;padding:11px 6px;text-align:center;cursor:pointer;transition:all 0.2s;color:var(--white);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.92rem}
+.fa-btn:hover,.fa-btn.active{background:rgba(124,58,237,0.15);border-color:#7c3aed;color:#a78bfa}
+.fa-btn small{display:block;font-size:0.7rem;font-weight:400;color:var(--muted);margin-top:2px}
+.upi-modal-id{background:#0d1017;border:2px dashed rgba(59,130,246,0.4);border-radius:11px;padding:13px 18px;text-align:center;font-family:monospace;font-size:1rem;color:#60a5fa;font-weight:700;margin:13px 0;cursor:pointer;user-select:all}
+.upi-modal-id:hover{background:#111827}
+.upi-pay-btn{width:100%;background:linear-gradient(135deg,#7c3aed,#3b82f6);color:#fff;border:none;padding:14px;border-radius:11px;font-weight:700;font-size:0.97rem;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:opacity 0.2s}
+.upi-pay-btn:hover{opacity:0.88}
+.fmodal-note{text-align:center;color:var(--muted);font-size:0.76rem;margin-top:9px}
+footer{background:var(--dark);border-top:1px solid var(--border);padding:44px 5% 26px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:36px;margin-bottom:36px}
+.footer-brand{display:flex;flex-direction:column;gap:10px}
+.footer-brand-logo{display:flex;align-items:center;gap:9px}
+.footer-brand-logo img{width:36px;height:36px;border-radius:9px}
+.footer-brand-logo span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.15rem;color:var(--white)}
+.footer-brand-logo em{color:var(--green);font-style:normal}
+.footer-brand p{color:var(--muted);font-size:0.83rem;line-height:1.7}
+.footer-col h4{font-family:'Space Grotesk',sans-serif;font-size:0.88rem;font-weight:700;color:var(--white);margin-bottom:14px}
+.footer-col a{display:block;color:var(--muted);text-decoration:none;font-size:0.83rem;margin-bottom:9px;transition:color 0.2s}
+.footer-col a:hover{color:var(--green)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:22px;border-top:1px solid var(--border);flex-wrap:wrap;gap:8px}
+.footer-bottom p{color:var(--muted);font-size:0.8rem}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.fund-cards{grid-template-columns:1fr}.naxsora-inner{grid-template-columns:1fr;text-align:center}.naxsora-img-wrap{margin-bottom:20px}.services-grid{grid-template-columns:1fr 1fr}.footer-grid{grid-template-columns:1fr}.process-steps::before{display:none}.chat-window{width:275px}.upi-box{flex-direction:column;text-align:center}.form-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.services-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+<div class="nav-inner">
+  <div class="nav-logo">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzBkMTExNyIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxNjFiMjIiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImcxIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwZTY3NiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMGM4NTMiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImcyIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwZTY3NiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM2OWYwYWUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDwhLS0gQmFja2dyb3VuZCByb3VuZGVkIHJlY3QgLS0+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSIyMiIgZmlsbD0idXJsKCNiZykiIHN0cm9rZT0iIzFlMjIyOSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8IS0tIFggbWFyayBiaWcgLS0+CiAgPHRleHQgeD0iNTAiIHk9IjU4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSI0NiIgZmlsbD0idXJsKCNnMSkiPlg8L3RleHQ+CiAgPCEtLSBTbWFsbCBQIHRvcC1sZWZ0IC0tPgogIDx0ZXh0IHg9IjE0IiB5PSIzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuOSI+UDwvdGV4dD4KICA8IS0tIFNtYWxsIFMgYm90dG9tLXJpZ2h0IC0tPgogIDx0ZXh0IHg9Ijg2IiB5PSI4MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiMwMGU2NzYiIG9wYWNpdHk9IjAuOSI+UzwvdGV4dD4KICA8IS0tIERvdCBhY2NlbnQgLS0+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI4MiIgcj0iMy41IiBmaWxsPSJ1cmwoI2cyKSIvPgo8L3N2Zz4=" alt="Naxsora AI"/>
+    <span class="nav-logo-text">Project<span>X</span> Store</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#naxsora">Naxsora AI</a></li>
+    <li><a href="#fund">Fund Us</a></li>
+    <li><a href="#order">Order</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="nav-fund" onclick="openFund()">💜 Fund Project</button>
+    <a href="#order" class="nav-cta">Start Project</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</div>
+</nav>
+
+<section class="hero" id="home">
+<div class="hero-content">
+  <div class="hero-badge">🟢 Currently Accepting Projects</div>
+  <h1>Your Ideas, <span>Executed</span> With Precision.</h1>
+  <p>From AI tools to digital marketing — ProjectX Store delivers 20+ professional services. You share the idea. We build, market and make it real.</p>
+  <div class="hero-btns">
+    <a href="#order" class="btn-primary">🚀 Start Your Project</a>
+    <button class="btn-fund" onclick="openFund()">💜 Fund This Project</button>
+    <a href="#services" class="btn-secondary">Browse Services</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><h3>20<span>+</span></h3><p>Service Categories</p></div>
+    <div class="stat-item"><h3>2<span>-7</span></h3><p>Days Delivery</p></div>
+    <div class="stat-item"><h3>₹<span>299</span></h3><p>Starting Price</p></div>
+    <div class="stat-item"><h3>AI<span>✦</span></h3><p>Powered Tools</p></div>
+  </div>
+</div>
+</section>
+
+<section class="fund-section" id="fund">
+<div class="fund-inner">
+  <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzBkMTExNyIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxNjFiMjIiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImcxIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwZTY3NiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMGM4NTMiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImcyIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwZTY3NiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM2OWYwYWUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDwhLS0gQmFja2dyb3VuZCByb3VuZGVkIHJlY3QgLS0+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSIyMiIgZmlsbD0idXJsKCNiZykiIHN0cm9rZT0iIzFlMjIyOSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8IS0tIFggbWFyayBiaWcgLS0+CiAgPHRleHQgeD0iNTAiIHk9IjU4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSI0NiIgZmlsbD0idXJsKCNnMSkiPlg8L3RleHQ+CiAgPCEtLSBTbWFsbCBQIHRvcC1sZWZ0IC0tPgogIDx0ZXh0IHg9IjE0IiB5PSIzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuOSI+UDwvdGV4dD4KICA8IS0tIFNtYWxsIFMgYm90dG9tLXJpZ2h0IC0tPgogIDx0ZXh0IHg9Ijg2IiB5PSI4MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiMwMGU2NzYiIG9wYWNpdHk9IjAuOSI+UzwvdGV4dD4KICA8IS0tIERvdCBhY2NlbnQgLS0+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI4MiIgcj0iMy41IiBmaWxsPSJ1cmwoI2cyKSIvPgo8L3N2Zz4=" class="fund-logo" alt="Naxsora AI"/>
+  <div class="fund-badge">💜 Support Our Mission</div>
+  <h2>Help Us Build the <span>Future of AI Services</span></h2>
+  <p class="fund-desc">ProjectX and Naxsora AI are built by one passionate developer — Prince Verma. Your funding directly powers new AI features, faster tools, free services for students, and bigger dreams. Every rupee matters. Join us as an early supporter and be part of something special.</p>
+  <div class="fund-cards">
+    <div class="fund-card"><div class="amount">₹99</div><div class="label">☕ Supporter</div><div class="desc">Buy Prince a chai. Small but meaningful — keeps the engine running daily.</div></div>
+    <div class="fund-card"><div class="amount">₹499</div><div class="label">⚡ Backer</div><div class="desc">Power a week of development. Get a shoutout and early access to new tools.</div></div>
+    <div class="fund-card"><div class="amount">₹1,999+</div><div class="label">🚀 Champion</div><div class="desc">Major backer. Free service worth ₹999 + your name in the credits.</div></div>
+  </div>
+  <div class="upi-box">
+    <div class="upi-left">
+      <h4>Send Directly via UPI</h4>
+      <p>No platform fees. 100% goes to development. Instant transfer.</p>
+    </div>
+    <div class="upi-id" onclick="copyUPI()" title="Click to copy">princeverma8753-1@oksbi</div>
+  </div>
+  <button class="fund-cta" onclick="openFund()">💜 Fund This Project Now</button>
+  <p class="fund-note">Every contribution is voluntary. No refunds. Thank you for believing in ProjectX.</p>
+</div>
+</section>
+
+<section id="naxsora" class="naxsora-section">
+<div class="naxsora-inner">
+  <div class="naxsora-img-wrap">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzBkMTExNyIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxNjFiMjIiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImcxIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwZTY3NiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMGM4NTMiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImcyIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwZTY3NiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM2OWYwYWUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDwhLS0gQmFja2dyb3VuZCByb3VuZGVkIHJlY3QgLS0+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSIyMiIgZmlsbD0idXJsKCNiZykiIHN0cm9rZT0iIzFlMjIyOSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8IS0tIFggbWFyayBiaWcgLS0+CiAgPHRleHQgeD0iNTAiIHk9IjU4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSI0NiIgZmlsbD0idXJsKCNnMSkiPlg8L3RleHQ+CiAgPCEtLSBTbWFsbCBQIHRvcC1sZWZ0IC0tPgogIDx0ZXh0IHg9IjE0IiB5PSIzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuOSI+UDwvdGV4dD4KICA8IS0tIFNtYWxsIFMgYm90dG9tLXJpZ2h0IC0tPgogIDx0ZXh0IHg9Ijg2IiB5PSI4MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiMwMGU2NzYiIG9wYWNpdHk9IjAuOSI+UzwvdGV4dD4KICA8IS0tIERvdCBhY2NlbnQgLS0+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI4MiIgcj0iMy41IiBmaWxsPSJ1cmwoI2cyKSIvPgo8L3N2Zz4=" class="naxsora-img" alt="Naxsora AI"/>
+  </div>
+  <div class="naxsora-content">
+    <div class="section-label">Our AI Tool</div>
+    <h2>Naxsora AI — Resume Analyzer</h2>
+    <p>Find out exactly why your resume keeps getting ignored. Naxsora AI scores ATS friendliness, extracts your sections, flags real issues and rewrites your weakest bullets — powered by advanced AI, completely free.</p>
+    <div class="nax-feats">
+      <div class="nax-feat">ATS Score and Friendliness Check</div>
+      <div class="nax-feat">Section Extraction and Analysis</div>
+      <div class="nax-feat">Weak Bullet Point Detection</div>
+      <div class="nax-feat">AI Rewrite Suggestions</div>
+      <div class="nax-feat">Target Role Matching</div>
+      <div class="nax-feat">100% Free — No Sign Up Required</div>
+    </div>
+    <a href="https://propel-career-ai.lovable.app/resume-analyzer" target="_blank" class="btn-primary" style="display:inline-block;text-decoration:none">Try Naxsora AI Free →</a>
+  </div>
+</div>
+</section>
+
+<section id="services" style="background:var(--dark)">
+<div class="section-label">All Services</div>
+<div class="section-title">20+ Service Categories</div>
+<div class="section-sub">Every service includes dedicated strategy, full execution and delivery to your email.</div>
+<div class="services-grid">
+
+  <div class="svc-card" onclick="orderService('Logo Design')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#1a0a2e,#2d1b69)"><span style="font-size:4.5rem">🎨</span></div>
+    <div class="svc-body"><span class="svc-tag">Design</span><h3>Logo Design</h3><p>Professional logos, brand marks, icon design. PNG, SVG and AI format delivered.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹499</div><div class="svc-days">⏱ 2–3 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Logo Design')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Website Builder')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#0a1a2e,#0d2d4a)"><span style="font-size:4.5rem">🌐</span></div>
+    <div class="svc-body"><span class="svc-tag">Web</span><h3>Website Builder</h3><p>Full websites, portfolios, landing pages — responsive, fast and ready to launch.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹999</div><div class="svc-days">⏱ 3–5 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Website Builder')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('AI and Automation')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#0a1f0a,#0d3d1a)"><span style="font-size:4.5rem">🤖</span></div>
+    <div class="svc-body"><span class="svc-tag">🔥 Popular</span><h3>AI and Automation</h3><p>AI tools, automation workflows, ChatGPT integrations and smart business solutions.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹1,999</div><div class="svc-days">⏱ 3–5 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('AI and Automation')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('SEO and Digital Marketing')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#1a1a0a,#3d3a0d)"><span style="font-size:4.5rem">📈</span></div>
+    <div class="svc-body"><span class="svc-tag">Marketing</span><h3>SEO and Digital Marketing</h3><p>SEO audits, keyword strategy, Google Ads, SEM and full conversion tracking.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹1,499</div><div class="svc-days">⏱ 4–7 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('SEO and Digital Marketing')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Social Media Management')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#1a0a1a,#3d0d3a)"><span style="font-size:4.5rem">📣</span></div>
+    <div class="svc-body"><span class="svc-tag">Social</span><h3>Social Media Management</h3><p>Content planning, scheduling, growth strategy and engagement improvement.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹1,299</div><div class="svc-days">⏱ 3–5 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Social Media Management')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Data Analysis and Excel')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#0a1a0a,#0d3d2a)"><span style="font-size:4.5rem">📊</span></div>
+    <div class="svc-body"><span class="svc-tag">Data</span><h3>Data Analysis and Excel</h3><p>Excel dashboards, data visualization, business insights and reports.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹499</div><div class="svc-days">⏱ 2–3 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Data Analysis and Excel')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Branding and Identity')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#1a0f0a,#3d2a0d)"><span style="font-size:4.5rem">✨</span></div>
+    <div class="svc-body"><span class="svc-tag">Branding</span><h3>Branding and Identity</h3><p>Brand kit, color palette, typography, guidelines and complete identity design.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹799</div><div class="svc-days">⏱ 3–4 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Branding and Identity')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Meta and Google Ads')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#0a0f1a,#0d1a3d)"><span style="font-size:4.5rem">📉</span></div>
+    <div class="svc-body"><span class="svc-tag">Ads</span><h3>Meta and Google Ads</h3><p>Facebook, Instagram and Google Ads setup, A/B testing and ROI optimization.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹1,999</div><div class="svc-days">⏱ 4–6 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Meta and Google Ads')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Academic Projects and PPT')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#1a1a0a,#2d3d0d)"><span style="font-size:4.5rem">📚</span></div>
+    <div class="svc-body"><span class="svc-tag">Academic</span><h3>Academic Projects and PPT</h3><p>School/college projects, PowerPoint presentations, research reports.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹299</div><div class="svc-days">⏱ 1–3 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Academic Projects and PPT')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Business Plan and Strategy')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#0a0a1a,#1a0d3d)"><span style="font-size:4.5rem">🧠</span></div>
+    <div class="svc-body"><span class="svc-tag">Strategy</span><h3>Business Plan and Strategy</h3><p>Business planning, market research, competitor analysis and strategy docs.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹1,499</div><div class="svc-days">⏱ 3–6 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Business Plan and Strategy')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Content Writing and Blogging')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#0a1a15,#0d3d2d)"><span style="font-size:4.5rem">✍️</span></div>
+    <div class="svc-body"><span class="svc-tag">Content</span><h3>Content Writing and Blogging</h3><p>Blog posts, website copy, product descriptions and LinkedIn articles.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹399</div><div class="svc-days">⏱ 2–4 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Content Writing and Blogging')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Video Editing and AI Video')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#1a0a0a,#3d0d0d)"><span style="font-size:4.5rem">🎬</span></div>
+    <div class="svc-body"><span class="svc-tag">Video</span><h3>Video Editing and AI Video</h3><p>Reels, YouTube edits, AI-generated videos, captions and effects.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹699</div><div class="svc-days">⏱ 2–4 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Video Editing and AI Video')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Resume and CV Writing')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#0a101a,#0d1f3d)"><span style="font-size:4.5rem">📄</span></div>
+    <div class="svc-body"><span class="svc-tag">Career</span><h3>Resume and CV Writing</h3><p>ATS-optimized resume, LinkedIn makeover, cover letters and career docs.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹499</div><div class="svc-days">⏱ 1–2 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Resume and CV Writing')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Thumbnail and Graphic Design')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#1a0a15,#3d0d2d)"><span style="font-size:4.5rem">🖼️</span></div>
+    <div class="svc-body"><span class="svc-tag">Graphics</span><h3>Thumbnail and Graphic Design</h3><p>YouTube thumbnails, social creatives, banners, posters and ad graphics.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹299</div><div class="svc-days">⏱ 1–2 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Thumbnail and Graphic Design')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('eCommerce Setup')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#0a1a0f,#0d3d1f)"><span style="font-size:4.5rem">🛒</span></div>
+    <div class="svc-body"><span class="svc-tag">eCommerce</span><h3>eCommerce Setup</h3><p>Shopify, WooCommerce, product listings, payment setup and store optimization.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹2,499</div><div class="svc-days">⏱ 5–7 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('eCommerce Setup')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('App UI/UX Design')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#0f0a1a,#1f0d3d)"><span style="font-size:4.5rem">📱</span></div>
+    <div class="svc-body"><span class="svc-tag">UI/UX</span><h3>App UI/UX Design</h3><p>Figma wireframes, mobile screens, user flows and complete UI design systems.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹1,999</div><div class="svc-days">⏱ 4–6 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('App UI/UX Design')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Email Marketing')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#1a100a,#3d2a0d)"><span style="font-size:4.5rem">📧</span></div>
+    <div class="svc-body"><span class="svc-tag">Email</span><h3>Email Marketing</h3><p>Email campaigns, newsletters, automation sequences and list management.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹999</div><div class="svc-days">⏱ 3–4 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Email Marketing')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Market Research')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#0a0f1a,#0d1a2d)"><span style="font-size:4.5rem">🔍</span></div>
+    <div class="svc-body"><span class="svc-tag">Research</span><h3>Market Research</h3><p>Competitor analysis, industry reports, trend research and actionable insights.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹1,299</div><div class="svc-days">⏱ 3–5 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Market Research')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Chatbot and GPT Integration')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#0a1a12,#0d3d25)"><span style="font-size:4.5rem">💬</span></div>
+    <div class="svc-body"><span class="svc-tag">AI</span><h3>Chatbot and GPT Integration</h3><p>Custom chatbots, GPT tools, WhatsApp bots and AI customer support setup.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹2,999</div><div class="svc-days">⏱ 4–7 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Chatbot and GPT Integration')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Pitch Deck and Investor Deck')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#1a0a0f,#3d0d1a)"><span style="font-size:4.5rem">🎯</span></div>
+    <div class="svc-body"><span class="svc-tag">Startup</span><h3>Pitch Deck and Investor Deck</h3><p>Stunning startup pitch decks, investor presentations and business proposal slides.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹1,499</div><div class="svc-days">⏱ 3–5 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Pitch Deck and Investor Deck')">📩 Contact</button></div>
+  </div>
+
+  <div class="svc-card" onclick="orderService('Influencer and Personal Brand')">
+    <div class="svc-img" style="background:linear-gradient(135deg,#1a150a,#3d320d)"><span style="font-size:4.5rem">⭐</span></div>
+    <div class="svc-body"><span class="svc-tag">Personal Brand</span><h3>Influencer and Personal Brand</h3><p>Personal branding, LinkedIn optimization, content calendar and growth plan.</p>
+    <div class="svc-footer"><div><div class="svc-price">From ₹1,999</div><div class="svc-days">⏱ 4–6 days</div></div><button class="svc-btn">Order</button></div>
+    <button class="contact-btn" onclick="event.stopPropagation();contactService('Influencer and Personal Brand')">📩 Contact</button></div>
+  </div>
+
+</div>
+</section>
+
+<section id="process" class="process-bg">
+<div class="section-label">How It Works</div>
+<div class="section-title">From Idea to Delivery</div>
+<div class="section-sub">Simple, transparent — 5 steps, no guesswork.</div>
+<div class="process-steps">
+  <div class="step"><div class="step-num">1</div><h4>Share Idea</h4><p>Fill the order form with your requirement and budget.</p></div>
+  <div class="step"><div class="step-num">2</div><h4>Prince Reviews</h4><p>Personal review and contact within 24 hours.</p></div>
+  <div class="step"><div class="step-num">3</div><h4>Strategy</h4><p>A clear actionable plan designed for your project.</p></div>
+  <div class="step"><div class="step-num">4</div><h4>Execution</h4><p>Full execution with regular progress updates.</p></div>
+  <div class="step"><div class="step-num">5</div><h4>Delivery</h4><p>Final polished delivery to your email. Done.</p></div>
+</div>
+</section>
+
+<section id="order">
+<div style="text-align:center">
+  <div class="section-label">Place Your Order</div>
+  <div class="section-title">Start Your Project Today</div>
+  <div class="section-sub" style="margin:0 auto">Prince personally contacts you within 24 hours to begin.</div>
+</div>
+<div class="form-wrapper">
+  <div class="form-grid">
+    <div class="form-group"><label>Your Full Name *</label><input type="text" id="f-name" placeholder="e.g. Rahul Sharma"/></div>
+    <div class="form-group"><label>Your Email *</label><input type="email" id="f-email" placeholder="you@gmail.com"/></div>
+    <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" id="f-phone" placeholder="+91 98765 43210"/></div>
+    <div class="form-group"><label>Service Category *</label>
+      <select id="f-category">
+        <option value="">Select a Service</option>
+        <option>Logo Design</option><option>Website Builder</option><option>AI and Automation</option>
+        <option>SEO and Digital Marketing</option><option>Social Media Management</option>
+        <option>Data Analysis and Excel</option><option>Branding and Identity</option>
+        <option>Meta and Google Ads</option><option>Academic Projects and PPT</option>
+        <option>Business Plan and Strategy</option><option>Content Writing and Blogging</option>
+        <option>Video Editing and AI Video</option><option>Resume and CV Writing</option>
+        <option>Thumbnail and Graphic Design</option><option>eCommerce Setup</option>
+        <option>App UI/UX Design</option><option>Email Marketing</option>
+        <option>Market Research</option><option>Chatbot and GPT Integration</option>
+        <option>Pitch Deck and Investor Deck</option><option>Influencer and Personal Brand</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Budget Range</label>
+      <select id="f-budget">
+        <option value="">Select Budget</option>
+        <option>Below Rs 500</option><option>Rs 500 - Rs 2000</option>
+        <option>Rs 2000 - Rs 5000</option><option>Rs 5000 - Rs 10000</option>
+        <option>Rs 10000+</option><option>Lets Discuss</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Expected Delivery</label>
+      <select id="f-delivery">
+        <option value="">Select Urgency</option>
+        <option>1-2 Days (Urgent)</option><option>3-5 Days (Standard)</option>
+        <option>1 Week</option><option>2+ Weeks (Flexible)</option>
+      </select>
+    </div>
+    <div class="form-group full"><label>Project Description *</label>
+      <textarea id="f-desc" placeholder="Describe your project in detail — what you need, goals, any references..."></textarea>
+    </div>
+  </div>
+  <button class="submit-btn" onclick="submitOrder()">🚀 Submit Project Application</button>
+  <p class="form-note">📩 Prince will reply within 24 hours · princeverma50055@gmail.com</p>
+</div>
+</section>
+
+<footer>
+<div class="footer-grid">
+  <div class="footer-brand">
+    <div class="footer-brand-logo">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzBkMTExNyIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxNjFiMjIiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImcxIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwZTY3NiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMGM4NTMiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImcyIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwZTY3NiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM2OWYwYWUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDwhLS0gQmFja2dyb3VuZCByb3VuZGVkIHJlY3QgLS0+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSIyMiIgZmlsbD0idXJsKCNiZykiIHN0cm9rZT0iIzFlMjIyOSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8IS0tIFggbWFyayBiaWcgLS0+CiAgPHRleHQgeD0iNTAiIHk9IjU4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSI0NiIgZmlsbD0idXJsKCNnMSkiPlg8L3RleHQ+CiAgPCEtLSBTbWFsbCBQIHRvcC1sZWZ0IC0tPgogIDx0ZXh0IHg9IjE0IiB5PSIzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuOSI+UDwvdGV4dD4KICA8IS0tIFNtYWxsIFMgYm90dG9tLXJpZ2h0IC0tPgogIDx0ZXh0IHg9Ijg2IiB5PSI4MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiMwMGU2NzYiIG9wYWNpdHk9IjAuOSI+UzwvdGV4dD4KICA8IS0tIERvdCBhY2NlbnQgLS0+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI4MiIgcj0iMy41IiBmaWxsPSJ1cmwoI2cyKSIvPgo8L3N2Zz4=" alt="Naxsora"/>
+      <span>Project<em>X</em> Store</span>
+    </div>
+    <p>Professional digital services and AI tools by Prince Verma. 20+ categories. Fast delivery. Quality guaranteed.</p>
+    <p style="color:#8b92a0;font-size:0.8rem;margin-top:2px">📩 princeverma50055@gmail.com</p>
+  </div>
+  <div class="footer-col">
+    <h4>Top Services</h4>
+    <a href="#services">Logo Design</a>
+    <a href="#services">Website Builder</a>
+    <a href="#services">AI and Automation</a>
+    <a href="#services">Resume Writing</a>
+    <a href="#services">Academic Projects</a>
+  </div>
+  <div class="footer-col">
+    <h4>Links</h4>
+    <a href="https://princeverma50055-cpu.github.io/ProjectX-Hub/" target="_blank">ProjectX Hub</a>
+    <a href="https://propel-career-ai.lovable.app/resume-analyzer" target="_blank">Naxsora AI Tool</a>
+    <a href="https://www.linkedin.com/in/prince-verma-2b100240a" target="_blank">LinkedIn</a>
+    <a href="#fund">Fund This Project</a>
+    <a href="#order">Start a Project</a>
+  </div>
+</div>
+<div class="footer-bottom">
+  <p>2025 ProjectX Store — Prince Verma — All rights reserved.</p>
+  <p style="color:#555">"Ideas are easy. Execution is everything."</p>
+</div>
+</footer>
+
+<div class="toast toast-green" id="toast1">Application sent! Prince will contact you soon.</div>
+<div class="toast toast-blue" id="toast2" style="bottom:80px">UPI ID copied to clipboard!</div>
+
+<div class="chat-bubble">
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div class="chat-avatar">👨</div>
+      <div class="chat-info"><h4>Prince Verma</h4><p>ProjectX Store - Usually replies in 1hr</p></div>
+    </div>
+    <div class="chat-msgs" id="chatMsgs">
+      <div class="chat-msg bot">Hi! I am Prince. What project can I help you with today?</div>
+      <div class="chat-msg bot">Describe your idea or fill the order form. I will get back within 24 hours!</div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" placeholder="Type your message..." onkeydown="if(event.key==='Enter')sendChat()"/>
+      <button onclick="sendChat()">→</button>
+    </div>
+  </div>
+  <button class="chat-btn" onclick="toggleChat()">💬</button>
+</div>
+
+<div class="fund-modal-overlay" id="fundModal">
+<div class="fmodal">
+  <div class="fmodal-header">
+    <h3>💜 Fund ProjectX and Naxsora AI</h3>
+    <button class="fmodal-close" onclick="closeFund()">×</button>
+  </div>
+  <div class="fmodal-body">
+    <p style="color:var(--muted);font-size:0.86rem;margin-bottom:14px">Your support directly powers new AI features and free tools for students.</p>
+    <div class="fund-amts">
+      <div class="fa-btn" onclick="selAmt(this,'99')">₹99<small>Chai</small></div>
+      <div class="fa-btn" onclick="selAmt(this,'199')">₹199<small>Snack</small></div>
+      <div class="fa-btn" onclick="selAmt(this,'499')">₹499<small>Backer</small></div>
+      <div class="fa-btn" onclick="selAmt(this,'999')">₹999<small>Power</small></div>
+      <div class="fa-btn" onclick="selAmt(this,'1999')">₹1999<small>Champion</small></div>
+      <div class="fa-btn" onclick="selAmt(this,'custom')">Custom<small>Any</small></div>
+    </div>
+    <p style="color:var(--muted);font-size:0.83rem;margin-bottom:7px">Send to UPI ID:</p>
+    <div class="upi-modal-id" onclick="copyUPI()">princeverma8753-1@oksbi</div>
+    <button class="upi-pay-btn" onclick="payNow()">💜 Open UPI App and Pay</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px">
+      <a id="gpayBtn" href="#" onclick="openGpay();return false;" style="background:#1a73e8;color:#fff;border-radius:8px;padding:8px 4px;text-align:center;font-size:0.76rem;font-weight:700;text-decoration:none;display:block">Google Pay</a>
+      <a id="phonepBtn" href="#" onclick="openPhonePe();return false;" style="background:#5f259f;color:#fff;border-radius:8px;padding:8px 4px;text-align:center;font-size:0.76rem;font-weight:700;text-decoration:none;display:block">PhonePe</a>
+      <a id="paytmBtn" href="#" onclick="openPaytm();return false;" style="background:#00baf2;color:#fff;border-radius:8px;padding:8px 4px;text-align:center;font-size:0.76rem;font-weight:700;text-decoration:none;display:block">Paytm</a>
+    </div>
+    <p class="fmodal-note">Works with PhonePe, GPay, Paytm, BHIM and all UPI apps.</p>
+    <div id="manualPayDiv" style="display:none;margin-top:12px;background:rgba(0,230,118,0.08);border:1px solid rgba(0,230,118,0.3);border-radius:10px;padding:14px;text-align:center">
+      <p style="color:#00e676;font-weight:700;font-size:0.9rem;margin-bottom:6px">Pay Manually in Your UPI App</p>
+      <p style="color:var(--muted);font-size:0.82rem;margin-bottom:4px">UPI ID: <strong style="color:#60a5fa;font-family:monospace">princeverma8753-1@oksbi</strong></p>
+      <p style="color:var(--muted);font-size:0.82rem">Amount: <strong style="color:#00e676">₹<span id="manPayAmt">99</span></strong></p>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+var selAmount="99";
+function selAmt(el,a){document.querySelectorAll(".fa-btn").forEach(b=>b.classList.remove("active"));el.classList.add("active");selAmount=a==="custom"?prompt("Enter amount:")||"99":a;}
+function openFund(){document.getElementById("fundModal").classList.add("open");}
+function closeFund(){document.getElementById("fundModal").classList.remove("open");}
+function payNow(){
+  var a=(selAmount+"").replace(/[^0-9]/g,"")||"99";
+  var upi="princeverma8753-1@oksbi";
+  var name="Prince+Verma";
+  var note="ProjectX+Fund";
+  // Universal UPI intent - works with GPay, PhonePe, Paytm, BHIM etc
+  var upiUrl="upi://pay?pa="+upi+"&pn="+name+"&am="+a+"&cu=INR&tn="+note;
+  // Try to open UPI app
+  var opened=false;
+  var iframe=document.createElement("iframe");
+  iframe.style.display="none";
+  document.body.appendChild(iframe);
+  try{
+    iframe.src=upiUrl;
+    opened=true;
+  }catch(e){}
+  setTimeout(function(){
+    document.body.removeChild(iframe);
+    if(!opened || document.hasFocus()){
+      // Show manual payment info
+      showManualPay(a);
+    }
+  },1500);
+  // Also try window.location as fallback
+  window.location.href=upiUrl;
+}
+
+function showManualPay(amt){
+  var d=document.getElementById("manualPayDiv");
+  if(d){d.style.display="block";document.getElementById("manPayAmt").textContent=amt;}
+}
+function copyUPI(){try{navigator.clipboard.writeText("princeverma8753-1@oksbi");}catch(e){}showToast("toast2");}
+function showToast(id){var t=document.getElementById(id);t.classList.add("show");setTimeout(()=>t.classList.remove("show"),3000);}
+function orderService(cat){var sel=document.getElementById("f-category");for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===cat||sel.options[i].text===cat){sel.value=sel.options[i].value;break;}}document.getElementById("order").scrollIntoView({behavior:"smooth"});}
+function contactService(cat){orderService(cat);setTimeout(()=>document.getElementById("f-desc").focus(),600);}
+function submitOrder(){var n=document.getElementById("f-name").value.trim(),e=document.getElementById("f-email").value.trim(),c=document.getElementById("f-category").value,d=document.getElementById("f-desc").value.trim();if(!n||!e||!c||!d){alert("Please fill Name, Email, Category and Description.");return;}try{var msgs=JSON.parse(localStorage.getItem("px_inbox")||"[]");msgs.unshift({from:n,email:e,phone:document.getElementById("f-phone").value,subject:"New Project: "+c,preview:d.slice(0,80)+"...",budget:document.getElementById("f-budget").value,delivery:document.getElementById("f-delivery").value,time:new Date().toLocaleString("en-IN"),unread:true});localStorage.setItem("px_inbox",JSON.stringify(msgs));}catch(e){}showToast("toast1");["f-name","f-email","f-phone","f-desc"].forEach(id=>document.getElementById(id).value="");document.getElementById("f-category").value="";document.getElementById("f-budget").value="";document.getElementById("f-delivery").value="";}
+function toggleChat(){document.getElementById("chatWindow").classList.toggle("open");}
+function sendChat(){var inp=document.getElementById("chatInput"),msg=inp.value.trim();if(!msg)return;var m=document.getElementById("chatMsgs");m.innerHTML+="<div class='chat-msg user'>"+msg+"</div>";inp.value="";m.scrollTop=m.scrollHeight;setTimeout(()=>{m.innerHTML+="<div class='chat-msg bot'>Thanks! I will contact you at princeverma50055@gmail.com shortly. You can also fill the order form for faster processing!</div>";m.scrollTop=m.scrollHeight;},800);}
+function openGpay(){
+  var a=(selAmount+"").replace(/[^0-9]/g,"")||"99";
+  window.location.href="gpay://upi/pay?pa=princeverma8753-1@oksbi&pn=Prince+Verma&am="+a+"&cu=INR&tn=ProjectX+Fund";
+  setTimeout(function(){showManualPay(a);},2000);
+}
+function openPhonePe(){
+  var a=(selAmount+"").replace(/[^0-9]/g,"")||"99";
+  window.location.href="phonepe://pay?pa=princeverma8753-1@oksbi&pn=Prince+Verma&am="+a+"&cu=INR&tn=ProjectX+Fund";
+  setTimeout(function(){showManualPay(a);},2000);
+}
+function openPaytm(){
+  var a=(selAmount+"").replace(/[^0-9]/g,"")||"99";
+  window.location.href="paytmmp://pay?pa=princeverma8753-1@oksbi&pn=Prince+Verma&am="+a+"&cu=INR&tn=ProjectX+Fund";
+  setTimeout(function(){showManualPay(a);},2000);
+}
+function toggleMenu(){var l=document.querySelector(".nav-links");if(l.style.display==="flex"){l.removeAttribute("style");}else{l.style.cssText="display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:#111317;padding:18px;border-bottom:1px solid #1e2229;z-index:998";}}
+</script>
+</body>
+</html>
